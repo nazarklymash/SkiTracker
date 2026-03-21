@@ -1,5 +1,11 @@
+package ui;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import util.Helpers;
+import model.Student;
+import model.TrainingSession;
 
 public class Menu {
     private final ArrayList<Student> students;

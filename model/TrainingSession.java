@@ -1,3 +1,5 @@
+package model;
+
 public class TrainingSession{
 
     private String date;

@@ -1,5 +1,10 @@
+package app;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import model.Student;
+import ui.Menu;
 
 public class SkiTracker {
     public static void main (String[] args){
