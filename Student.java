@@ -1,9 +1,14 @@
+import java.util.ArrayList;
+
 public class Student{
 
     private int age;
     private String name;
     private int level;
     private int objLevel;
+    private ArrayList<TrainingSession> sessions = new ArrayList<>();
+
+    // Getters
 
     public int getAge(){
         return age;
@@ -20,6 +25,12 @@ public class Student{
     public int getObjLevel(){
         return objLevel;
     }
+
+    public ArrayList<TrainingSession> getSessions(){
+        return sessions;
+    }
+
+    // Setters
 
     public void setAge(int age){
         if (age <= 0){
@@ -48,6 +59,7 @@ public class Student{
         }
         this.objLevel = objLevel;
     }
+    // ===============================================================================
 
     @Override
     public String toString() {
@@ -55,6 +67,14 @@ public class Student{
                     ", age=" + age +
                     ", level=" + level +
                     ", objLevel=" + objLevel +
+                    ", sessions=" + sessions.size() +
                     "}";
+    }
+
+    public void addSession(TrainingSession session){
+        if (session == null){
+            throw new IllegalArgumentException("Error: Session is null");
+        }
+        sessions.add(session);
     }
 }
