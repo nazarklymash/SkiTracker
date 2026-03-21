@@ -33,13 +33,17 @@ public class Menu {
                     addStudentSession();
                     break;
 
+                case "5":
+                    showStudentSessions();
+                    break;
+
                 case "0":
                     isRunning = false;
                     System.out.println("Info: Exiting from menu...");
                     break;
 
                 default:
-                    System.out.println("Error: Incorrect choice (1, 2, 3, 4 or 0)");
+                    System.out.println("Error: Incorrect choice (1, 2, 3, 4, 5 or 0)");
                     break;
             }
         }
@@ -107,6 +111,56 @@ public class Menu {
 
         }
     }
+
+    private void showStudentSessions(){
+        try {
+
+            if (!students.isEmpty()){
+
+                showStudents();
+                int id = students.size();
+                System.out.println("Info: Enter the ID of student of which you want to see the sessions or 0 to exit show sessions menu: ");
+                int choice = Integer.parseInt(scanner.nextLine().trim());
+
+                if (choice == 0){
+                    System.out.println("Info: Exiting show session menu...");
+                    return;
+                }
+
+                if (choice < 1 || choice > id){
+                    System.out.println("Error: Incorrect ID of student (1 <= ID <= " + id + ")");
+                    return;
+                }
+        
+                Student student = students.get(choice - 1);
+                ArrayList<TrainingSession> sessions = student.getSessions();
+
+                if (sessions.isEmpty()){
+                    System.out.println("Info: session list is empty, nothing to show");
+                    return;
+                }
+
+                System.out.println("== List of sessions for student with ID = " + choice + " ==");
+                for (TrainingSession session : sessions){
+
+                    String date = session.getDate();
+                    int timeOfSession = session.getTimeOfSession();
+                    String typeOfSession = session.getTypeOfSession();
+                    String notes = session.getNotes();
+
+                    System.out.println("Date: " + date + ", duration: " + timeOfSession  + ", type of session: " + typeOfSession + ", Notes: " + notes);
+                }
+
+            } else {
+                System.out.println("Info: List of students is empty, nothing to show");
+            }
+
+        } catch (NumberFormatException e ){
+            System.out.println("Input error: try again: " + e.getMessage());
+        }
+    }
+
+    
 
     private void removeStudent(){
         try {
@@ -198,6 +252,7 @@ public class Menu {
         System.out.println("Type 2 to show the students");
         System.out.println("Type 3 to remove the student");
         System.out.println("Type 4 to create the training session");
+        System.out.println("Type 5 to show the training sessions of student");
         System.out.println("Type 0 to exit");
     }
 }
