@@ -82,24 +82,59 @@ public class Menu {
     
     private void showStudents(){
 
-        if (!students.isEmpty()){        
+        if (!students.isEmpty()){   
+            int id = 0;
             System.out.println("List of students: ");
 
             for (Student student : students){
-            String name = student.getName();
-            int age = student.getAge();
-            int level = student.getLevel();
-            int objLevel = student.getObjLevel();
-            System.out.println("Name: " + name + ", Age: " + age + ", Level: " + level + ", objective level: " + objLevel);
+
+                String name = student.getName();
+                int age = student.getAge();
+                int level = student.getLevel();
+                int objLevel = student.getObjLevel();
+                
+                System.out.println("ID: " + (id + 1) + ", Name: " + name + ", Age: " + age + ", Level: " + level + ", objective level: " + objLevel);
+                id++;
             }
+
         } else {
+
             System.out.println("There is no students to show");
+
         }
     }
 
     private void removeStudent(){
+        try {
 
+            if (!students.isEmpty()){
+
+                showStudents();
+                int id = students.size();
+                System.out.println("Enter the ID of student you want to remove or 0 to exit remove menu: ");
+                int choice = Integer.parseInt(scanner.nextLine().trim());
+
+                if (choice == 0){
+                    System.out.println("Exiting remove menu...");
+                    return;
+                }
+
+                if (choice < 1 || choice > id){
+                    System.out.println("Error: Incorrect ID of student (1 <= ID <= " + id + ")");
+                    return;
+                }
+        
+                students.remove(choice - 1);
+
+            } else {
+                System.out.println("List of students is empty, nothing to remove");
+            }
+
+        } catch (NumberFormatException e ){
+            System.out.println("Input error: try again");
+        }
     }
+
 
     private void printMenu(){
         System.out.println("\n SkiTracker Menu");
