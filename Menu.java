@@ -55,16 +55,16 @@ public class Menu {
         String name = scanner.nextLine().trim();
 
         System.out.println("Info: Enter age: ");
-        int age = Integer.parseInt(scanner.nextLine().trim());
+        int age = Helpers.readInt(scanner);
 
         System.out.println("Info: Enter level: ");
-        int level = Integer.parseInt(scanner.nextLine().trim());
+        int level = Helpers.readInt(scanner);
 
         System.out.println("Info: Enter objective level: ");
         int objLevel = 0;
         boolean isCorrect = false;
         while (!isCorrect){
-            objLevel = Integer.parseInt(scanner.nextLine().trim());
+            objLevel = Helpers.readInt(scanner);
             if (objLevel <= level){
                 System.out.println("Warn: Objective level has to be > than current level");
                 continue;
@@ -81,8 +81,6 @@ public class Menu {
 
         students.add(student);
         System.out.println("Info: Student was successfully added");
-        } catch (NumberFormatException e){
-            System.out.println("Error: Invalid number format: " + e.getMessage());
         } catch (IllegalArgumentException e ){
             System.out.println("Error: Input error: " + e.getMessage());
         }
@@ -113,72 +111,32 @@ public class Menu {
     }
 
     private void showStudentSessions(){
-        try {
-
             if (!students.isEmpty()){
 
                 showStudents();
-                int id = students.size();
-                System.out.println("Info: Enter the ID of student of which you want to see the sessions or 0 to exit show sessions menu: ");
-                int choice = Integer.parseInt(scanner.nextLine().trim());
-
-                if (choice == 0){
-                    System.out.println("Info: Exiting show session menu...");
-                    return;
-                }
-
-                if (choice < 1 || choice > id){
-                    System.out.println("Error: Incorrect ID of student (1 <= ID <= " + id + ")");
+                int choice = Helpers.readChoice(students, scanner);
+                if (choice < 0){
                     return;
                 }
         
                 Student student = students.get(choice - 1);
                 ArrayList<TrainingSession> sessions = student.getSessions();
 
-                if (sessions.isEmpty()){
-                    System.out.println("Info: session list is empty, nothing to show");
-                    return;
-                }
-
-                System.out.println("== List of sessions for student with ID = " + choice + " ==");
-                for (TrainingSession session : sessions){
-
-                    String date = session.getDate();
-                    int timeOfSession = session.getTimeOfSession();
-                    String typeOfSession = session.getTypeOfSession();
-                    String notes = session.getNotes();
-
-                    System.out.println("Date: " + date + ", duration: " + timeOfSession  + ", type of session: " + typeOfSession + ", Notes: " + notes);
-                }
+                printSessions(sessions);
 
             } else {
                 System.out.println("Info: List of students is empty, nothing to show");
             }
-
-        } catch (NumberFormatException e ){
-            System.out.println("Input error: try again: " + e.getMessage());
-        }
     }
 
     
 
     private void removeStudent(){
-        try {
-
             if (!students.isEmpty()){
 
                 showStudents();
-                int id = students.size();
-                System.out.println("Info: Enter the ID of student you want to remove or 0 to exit remove menu: ");
-                int choice = Integer.parseInt(scanner.nextLine().trim());
-
-                if (choice == 0){
-                    System.out.println("Info: Exiting remove menu...");
-                    return;
-                }
-
-                if (choice < 1 || choice > id){
-                    System.out.println("Error: Incorrect ID of student (1 <= ID <= " + id + ")");
+                int choice = Helpers.readChoice(students, scanner);
+                if (choice < 0){
                     return;
                 }
         
@@ -188,28 +146,16 @@ public class Menu {
                 System.out.println("Info: List of students is empty, nothing to remove");
             }
 
-        } catch (NumberFormatException e ){
-            System.out.println("Input error: try again: " + e.getMessage());
-        }
     }
 
     private void addStudentSession(){
-        try {
+        try{
 
             if (!students.isEmpty()){
 
                 showStudents();
-                int id = students.size();
-                System.out.println("Info: Enter the ID of student to add the session: ");
-                int choice = Integer.parseInt(scanner.nextLine().trim());
-
-                if (choice == 0){
-                    System.out.println("Info: Exiting session adding menu...");
-                    return;
-                }
-
-                if (choice < 1 || choice > id){
-                    System.out.println("Error: Incorrect ID of student (1 <= ID <= " + id + ")");
+                int choice = Helpers.readChoice(students, scanner);
+                if (choice < 0){
                     return;
                 }
         
@@ -219,7 +165,7 @@ public class Menu {
                 System.out.println("Type the date of session: ");
                 String date = scanner.nextLine().trim();
                 System.out.println("Type the time durability of session: ");
-                int timeOfSession = Integer.parseInt(scanner.nextLine().trim());
+                int timeOfSession = Helpers.readInt(scanner);
                 System.out.println("Type the type of session: ");
                 String typeOfSession = scanner.nextLine().trim();
                 System.out.println("Type the notes (if you want): ");
@@ -236,11 +182,9 @@ public class Menu {
 
             } else {
                 System.out.println("Warn: List of students is empty, cant add the session");
+            
             }
-
-        } catch (NumberFormatException e ){
-            System.out.println("Input error: try again: " + e.getMessage());
-        } catch (IllegalArgumentException e){
+            } catch (IllegalArgumentException e){
             System.out.println("Input error: try again: " + e.getMessage());
         }
     }
@@ -254,5 +198,23 @@ public class Menu {
         System.out.println("Type 4 to create the training session");
         System.out.println("Type 5 to show the training sessions of student");
         System.out.println("Type 0 to exit");
+    }
+
+    private void printSessions(ArrayList<TrainingSession> sessions){
+        if (sessions.isEmpty()){
+            System.out.println("Info: session list is empty, nothing to show");
+            return;
+        }
+
+        System.out.println("== List of sessions of student ==");
+        for (TrainingSession session : sessions){
+
+            String date = session.getDate();
+            int timeOfSession = session.getTimeOfSession();
+            String typeOfSession = session.getTypeOfSession();
+            String notes = session.getNotes();
+
+            System.out.println("Date: " + date + ", duration: " + timeOfSession  + ", type of session: " + typeOfSession + ", Notes: " + notes);
+        }
     }
 }
