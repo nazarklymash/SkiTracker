@@ -1,10 +1,6 @@
 package util;
 
-
-import java.util.ArrayList;
 import java.util.Scanner;
-import model.Student;
-
 
 public class Helpers {
 
@@ -12,10 +8,9 @@ public class Helpers {
         return Integer.parseInt(scanner.nextLine().trim());
     }
 
-    public static int readChoice(ArrayList<Student> students, Scanner scanner){
+    public static int readChoice(int id, Scanner scanner){
         try {
-                int id = students.size();
-                System.out.println("Info: Enter the ID of student: ");
+                System.out.println("Info: Enter the ID: ");
                 int choice = readInt(scanner);
 
                 if (choice == 0){
@@ -24,7 +19,7 @@ public class Helpers {
                 }
 
                 if (choice < 1 || choice > id){
-                    System.out.println("Error: Incorrect ID of student (1 <= ID <= " + id + ")");
+                    System.out.println("Error: Incorrect ID (1 <= ID <= " + id + ")");
                     return -1;
                 }
             return choice;

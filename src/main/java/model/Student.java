@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+
 public class Student{
 
     private int age;
@@ -29,7 +30,7 @@ public class Student{
     }
 
     public ArrayList<TrainingSession> getSessions(){
-        return new ArrayList<>(sessions);
+        return sessions;
     }
 
     // Setters

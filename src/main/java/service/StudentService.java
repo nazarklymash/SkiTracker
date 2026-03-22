@@ -76,7 +76,7 @@ public class StudentService {
             if (!students.isEmpty()){
 
                 showStudents();
-                int choice = Helpers.readChoice(students, scanner);
+                int choice = Helpers.readChoice(students.size(), scanner);
                 if (choice < 0){
                     return;
                 }
@@ -97,7 +97,7 @@ public class StudentService {
             if (!students.isEmpty()){
 
                 showStudents();
-                int choice = Helpers.readChoice(students, scanner);
+                int choice = Helpers.readChoice(students.size(), scanner);
                 if (choice < 0){
                     return;
                 }
@@ -116,7 +116,7 @@ public class StudentService {
             if (!students.isEmpty()){
 
                 showStudents();
-                int choice = Helpers.readChoice(students, scanner);
+                int choice = Helpers.readChoice(students.size(), scanner);
                 if (choice < 0){
                     return;
                 }
@@ -148,14 +148,6 @@ public class StudentService {
         }
     }
 
-    public void removeStudentSession(){
-
-    }
-
-    public void editStudentSession(){
-        
-    }
-
     public void printMenu(){
         System.out.println("\n SkiTracker Menu");
         System.out.println("Type 1 to add the student");
@@ -163,6 +155,7 @@ public class StudentService {
         System.out.println("Type 3 to remove the student");
         System.out.println("Type 4 to create the training session");
         System.out.println("Type 5 to show the training sessions of student");
+        System.out.println("Type 6 to edit the session of student");
         System.out.println("Type 0 to exit");
     }
 
@@ -171,7 +164,7 @@ public class StudentService {
             System.out.println("Info: session list is empty, nothing to show");
             return;
         }
-
+        int id = 0;
         System.out.println("== List of sessions of student ==");
         for (TrainingSession session : sessions){
 
@@ -179,8 +172,128 @@ public class StudentService {
             int timeOfSession = session.getTimeOfSession();
             String typeOfSession = session.getTypeOfSession();
             String notes = session.getNotes();
-
-            System.out.println("Date: " + date + ", duration: " + timeOfSession  + ", type of session: " + typeOfSession + ", Notes: " + notes);
+            id++;
+            System.out.println("ID: " + id + ", Date: " + date + ", duration: " + timeOfSession  + ", type of session: " + typeOfSession + ", Notes: " + notes);
         }
+    }
+
+    public void editStudentSession(){
+        try {
+          if (!students.isEmpty()){
+            showStudents();
+            int choice = Helpers.readChoice(students.size(), scanner);
+            if (choice == -1){
+                System.out.println("Error: Wrong ID was typed");
+                return;
+            }
+            Student student = students.get(choice-1);
+
+            ArrayList<TrainingSession> sessions = student.getSessions();
+            printSessions(sessions);
+            if (sessions.isEmpty()){
+                return;
+            }
+            System.out.println("Info: type the id of session: ");
+            choice = Helpers.readChoice(sessions.size(), scanner);
+            if (choice == -1){
+                System.out.println("Error: Wrong ID was typed");
+                return;
+            }
+            TrainingSession chosenSession = sessions.get(choice - 1);
+            
+            boolean inMenu = true;
+            int loopChoice;
+            while(inMenu){
+
+                System.out.println("Choose what you want to edit: ");
+                System.out.println("Type 1 to edit date");
+                System.out.println("Type 2 to edit durability");
+                System.out.println("Type 3 to edit type of session");
+                System.out.println("Type 4 to edit notes");
+                System.out.println("Type 5 to exit the session edit menu");
+
+                loopChoice = Helpers.readChoice(5, scanner);
+                if (loopChoice == -1){
+                    System.out.println("Error: Wrong ID was typed");
+                    return;
+                }
+                switch (loopChoice) {
+
+                    case 1:
+                        chosenSession.setDate(scanner.nextLine());
+                        break;
+
+                    case 2: 
+                        chosenSession.setTimeOfSession(Helpers.readInt(scanner));
+                        break;
+                    
+                    case 3:
+                        chosenSession.setTypeOfSession(scanner.nextLine());
+                        break;
+
+                    case 4:
+                        chosenSession.setNotes(scanner.nextLine());
+                        break;
+                    
+                    case 5:
+                        inMenu = false;
+                        break;
+                    
+                    default:
+                        System.err.println("Error: the choice is from 1 to 5");
+                        break;
+                }
+                
+            }
+        } else {
+            System.out.println("Warn: Nothing to choose, there is no students");
+            return;
+        }
+        } catch (NumberFormatException e){
+
+            System.err.println("Error: incorrect number format: " + e.getMessage());
+
+        } catch (IllegalArgumentException e){
+
+            System.err.println("Error: Illegal argument was typed: " + e.getMessage());
+        
+        }
+        
+    
+        
+    }
+
+    public void removeStudentSession(){
+            if (!students.isEmpty()){
+
+                showStudents();
+                int choice = Helpers.readChoice(students.size(), scanner);
+                if (choice == -1){
+                    System.err.println("Error: Incorrect ID");
+                    return;
+                }
+
+                Student student = students.get(choice - 1);
+
+                if (student.getSessions().isEmpty()){
+                    System.out.println("Warn: The list of sessions is empty, nothing to remove");
+                    return;
+                }
+
+                printSessions(student.getSessions());
+
+                choice = Helpers.readChoice(student.getSessions().size(), scanner);
+                
+                if (choice == -1){
+                    System.err.println("Error: Incorrect ID");
+                    return;
+                }
+
+                student.getSessions().remove(choice-1);
+                System.out.println("Info: Session was successfully deleted");
+
+            } else {
+                System.out.println("Warn: the list of students is empty, nothing to remove");
+            }
     }
 }

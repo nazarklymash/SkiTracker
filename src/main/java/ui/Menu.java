@@ -47,11 +47,11 @@ public class Menu {
                     break;
 
                 case "6":
-                    studentService.removeStudentSession();
+                    studentService.editStudentSession();
                     break;
 
                 case "7":
-                    studentService.editStudentSession();
+                    studentService.removeStudentSession();
                     break;
 
                 case "0":

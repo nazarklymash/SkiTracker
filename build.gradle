@@ -15,14 +15,6 @@ application {
 mainClass = 'app.SkiTracker'
 }
 
-sourceSets {
-    main {
-        java {
-            srcDirs = ['app', 'model', 'ui', 'util', 'service']
-        }
-    }
-}
-
 tasks.named('run') {
     standardInput = System.in
 }

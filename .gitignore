@@ -1,5 +1,6 @@
 *.class
 /out
+/.vscode
 
 # Gradle and build outputs
 /.gradle/

@@ -10,11 +10,12 @@ import service.StudentService;
 
 public class SkiTracker {
     public static void main (String[] args){
-        ArrayList<Student> students = new ArrayList<>();
+
+        String storage = "data/students.json";
+        ArrayList<Student> students = JsonStorage.readFileJson(storage);
         Scanner scanner = new Scanner(System.in);
         StudentService studentService = new StudentService(scanner, students);
-        String storage = "data/students.json";
-        students = JsonStorage.readFileJson(storage);
+        
         
         Menu menu = new Menu(students, scanner, studentService);
         menu.run();
