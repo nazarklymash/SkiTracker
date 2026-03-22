@@ -1,14 +1,9 @@
 package util;
 
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import model.Student;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
 
 
 public class Helpers {
@@ -36,16 +31,6 @@ public class Helpers {
         } catch (NumberFormatException e){
             System.out.println("Error: Enter valid number" + e.getMessage());
             return -1;
-        }
-    }
-
-    public static void writeFileJson(Student student, String outputFile){
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter writer = new FileWriter(outputFile)) {
-            gson.toJson(student, writer);
-            System.out.println("Info: Content was successfully saved to file");
-        } catch (IOException e){
-            System.err.println("Error: can't open or write into the file: " + e.getMessage());
         }
     }
 }

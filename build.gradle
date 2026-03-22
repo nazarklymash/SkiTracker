@@ -16,12 +16,11 @@ mainClass = 'app.SkiTracker'
 }
 
 sourceSets {
-	main {
-		java {
-			srcDirs = ['.']
-			include 'app/**/*.java', 'model/**/*.java', 'ui/**/*.java', 'util/**/*.java'
-		}
-	}
+    main {
+        java {
+            srcDirs = ['app', 'model', 'ui', 'util', 'service']
+        }
+    }
 }
 
 tasks.named('run') {
