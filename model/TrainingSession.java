@@ -48,6 +48,13 @@ public class TrainingSession{
         this.notes = notes;
     }
 
+    public TrainingSession(String date, int timeOfSession, String typeOfSession, String notes){
+        setDate(date);
+        setTimeOfSession(timeOfSession);
+        setTypeOfSession(typeOfSession);
+        setNotes(notes);
+    }
+
     public String toString(){
         return "TrainingSession{date=" + date +
                                 ", timeOfSession=" + timeOfSession + 

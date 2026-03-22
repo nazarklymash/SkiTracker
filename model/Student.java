@@ -29,7 +29,7 @@ public class Student{
     }
 
     public ArrayList<TrainingSession> getSessions(){
-        return sessions;
+        return new ArrayList<>(sessions);
     }
 
     // Setters
@@ -60,6 +60,13 @@ public class Student{
             throw new IllegalArgumentException("Objective Level has to be from 1 to 10");
         }
         this.objLevel = objLevel;
+    }
+
+    public Student(int age, String name, int level, int objLevel){
+        setAge(age);
+        setName(name);
+        setLevel(level);
+        setObjLevel(objLevel);
     }
     // ===============================================================================
 

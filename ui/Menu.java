@@ -79,11 +79,7 @@ public class Menu {
             }
         }
         
-        Student student = new Student();
-        student.setName(name);
-        student.setAge(age);
-        student.setLevel(level);
-        student.setObjLevel(objLevel);
+        Student student = new Student(age, name, level, objLevel);
 
         students.add(student);
         System.out.println("Info: Student was successfully added");
@@ -166,7 +162,7 @@ public class Menu {
                 }
         
                 Student student = students.get(choice - 1);
-                TrainingSession session = new TrainingSession();
+                
 
                 System.out.println("Type the date of session: ");
                 String date = scanner.nextLine().trim();
@@ -177,10 +173,7 @@ public class Menu {
                 System.out.println("Type the notes (if you want): ");
                 String notes = scanner.nextLine().trim();
 
-                session.setDate(date);
-                session.setTimeOfSession(timeOfSession);
-                session.setTypeOfSession(typeOfSession);
-                session.setNotes(notes);
+                TrainingSession session = new TrainingSession(date, timeOfSession, typeOfSession, notes);
 
                 student.addSession(session);
 
