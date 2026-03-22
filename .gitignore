@@ -1,2 +1,10 @@
 *.class
 /out
+
+# Gradle and build outputs
+/.gradle/
+/build/
+/bin/
+
+# Local persisted runtime data
+/data/*.json
